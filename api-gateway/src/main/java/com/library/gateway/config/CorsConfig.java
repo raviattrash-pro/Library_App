@@ -12,36 +12,40 @@ import java.util.List;
 @Configuration
 public class CorsConfig {
 
-    @Bean
-    public CorsWebFilter corsWebFilter() {
-        CorsConfiguration corsConfig = new CorsConfiguration();
+        @Bean
+        public CorsWebFilter corsWebFilter() {
+                CorsConfiguration corsConfig = new CorsConfiguration();
 
-        // Allow specific origins
-        corsConfig.setAllowedOriginPatterns(Arrays.asList(
-                "http://localhost:5173",
-                "http://localhost:3000",
-                "http://localhost:8080"));
+                // Allow specific origins
+                corsConfig.setAllowedOriginPatterns(Arrays.asList(
+                                "http://localhost:5173",
+                                "http://localhost:3000",
+                                "http://localhost:8080",
+                                "https://library-app-alpha-one.vercel.app",
+                                "https://*.vercel.app",
+                                "https://*.railway.app",
+                                "https://*.onrender.com"));
 
-        // Allow credentials
-        corsConfig.setAllowCredentials(true);
+                // Allow credentials
+                corsConfig.setAllowCredentials(true);
 
-        // Allow all HTTP methods
-        corsConfig.setAllowedMethods(Arrays.asList(
-                "GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+                // Allow all HTTP methods
+                corsConfig.setAllowedMethods(Arrays.asList(
+                                "GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
 
-        // Allow all headers
-        corsConfig.setAllowedHeaders(List.of("*"));
+                // Allow all headers
+                corsConfig.setAllowedHeaders(List.of("*"));
 
-        // Expose headers
-        corsConfig.setExposedHeaders(Arrays.asList(
-                "Authorization", "Content-Type", "X-User-Id", "X-User-Role"));
+                // Expose headers
+                corsConfig.setExposedHeaders(Arrays.asList(
+                                "Authorization", "Content-Type", "X-User-Id", "X-User-Role"));
 
-        // Cache preflight for 1 hour
-        corsConfig.setMaxAge(3600L);
+                // Cache preflight for 1 hour
+                corsConfig.setMaxAge(3600L);
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", corsConfig);
+                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                source.registerCorsConfiguration("/**", corsConfig);
 
-        return new CorsWebFilter(source);
-    }
+                return new CorsWebFilter(source);
+        }
 }

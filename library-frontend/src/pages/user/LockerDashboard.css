@@ -1,0 +1,439 @@
+/* ==========================================
+   LOCKER DASHBOARD - ROOM THEMES
+   Matching SeatBooking Aesthetic
+   ========================================== */
+
+:root {
+    --ambient-light: rgba(255, 255, 255, 0.1);
+    --shadow-soft: 2px 4px 8px rgba(0, 0, 0, 0.2);
+    --shadow-deep: 5px 10px 20px rgba(0, 0, 0, 0.4);
+    --shadow-ground: 0 15px 30px -10px rgba(0, 0, 0, 0.6);
+}
+
+/* --- THEME DEFINITIONS --- */
+
+/* 🏛️ Room 1: Classic */
+.locker-dashboard-container.classic {
+    --theme-bg: #2c1810;
+    --theme-text: #fef3c7;
+    --locker-color: #5d2906;
+    --locker-border: #422006;
+    --floor-pattern: conic-gradient(at 0% 0%, #3e1b04 25%, #5d2906 25% 50%, #3e1b04 50% 75%, #5d2906 75%) 0 0 / 40px 40px;
+}
+
+/* 💡 Room 2: Modern */
+.locker-dashboard-container.modern {
+    --theme-bg: #f1f5f9;
+    --theme-text: #0f172a;
+    --locker-color: #cbd5e1;
+    --locker-border: #94a3b8;
+    --floor-pattern: radial-gradient(circle at 50% 50%, #f8fafc, #cbd5e1 120%);
+}
+
+.locker-dashboard-container.modern.dark {
+    --theme-bg: #0f172a;
+    --theme-text: #f8fafc;
+    --locker-color: #1e293b;
+    --locker-border: #334155;
+    --floor-pattern: radial-gradient(circle at 50% 50%, #1e293b, #0f172a 120%);
+}
+
+/* 🎨 Room 3: Creative */
+.locker-dashboard-container.creative {
+    --theme-bg: #fffbeb;
+    --theme-text: #78350f;
+    --locker-color: #fbbf24;
+    --locker-border: #f59e0b;
+    --floor-pattern: radial-gradient(circle at 20% 80%, rgba(239, 68, 68, 0.1) 0%, transparent 10%), radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.1) 0%, transparent 10%), linear-gradient(#f3f4f6, #f3f4f6);
+}
+
+/* 📜 Room 4: Archive */
+.locker-dashboard-container.archive {
+    --theme-bg: #e7e5e4;
+    --theme-text: #44403c;
+    --locker-color: #78350f;
+    --locker-border: #451a03;
+    --floor-pattern: linear-gradient(45deg, #d6d3d1 25%, transparent 25%, transparent 75%, #d6d3d1 75%, #d6d3d1), linear-gradient(45deg, #d6d3d1 25%, transparent 25%, transparent 75%, #d6d3d1 75%, #d6d3d1);
+}
+
+/* 🌿 Room 5: Nature */
+.locker-dashboard-container.nature {
+    --theme-bg: #ecfdf5;
+    --theme-text: #065f46;
+    --locker-color: #86efac;
+    --locker-border: #4ade80;
+    --floor-pattern: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 2px, transparent 2.5px), linear-gradient(to bottom, #86efac, #4ade80);
+}
+
+/* --- LAYOUT --- */
+.locker-dashboard-container {
+    min-height: 100vh;
+    padding: 2rem;
+    background-color: var(--theme-bg);
+    color: var(--theme-text);
+    transition: background 0.5s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Header */
+.page-header {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 1rem 2rem;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.back-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    color: inherit;
+    cursor: pointer;
+}
+
+.header-info h1 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.header-info .subtitle {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* Room Selector */
+.room-selector {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.room-tab {
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.room-tab.active {
+    background: white;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: 2px solid var(--locker-color);
+}
+
+/* Legend */
+.status-legend {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.legend-dot.available {
+    background: #4ade80;
+}
+
+.legend-dot.booked {
+    background: #f87171;
+}
+
+.legend-dot.maintenance {
+    background: #fbbf24;
+}
+
+.room-capacity {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 2px 10px;
+    border-radius: 12px;
+}
+
+/* --- LOCKER ROOM LAYOUT --- */
+.locker-room-layout {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 3rem;
+    background: var(--floor-pattern);
+    border-radius: 20px;
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.2);
+    border: 10px solid rgba(0, 0, 0, 0.1);
+    min-height: 500px;
+    position: relative;
+    overflow-x: auto;
+}
+
+.locker-banks-grid {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+}
+
+/* Locker Bank Unit (Shelf) */
+.locker-bank-unit {
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+    background: var(--locker-border);
+    padding: 12px;
+    border-radius: 8px 8px 0 0;
+    box-shadow: var(--shadow-deep);
+    position: relative;
+    border-bottom: none;
+}
+
+.bank-header {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    padding: 2px;
+}
+
+.bank-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* 2 Lockers per row in a bank */
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.1);
+    padding: 8px;
+    border-radius: 4px;
+}
+
+/* Locker Slot (Individual Locker) */
+.locker-slot {
+    height: 60px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(200, 200, 200, 0.9));
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.locker-slot:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.locker-slot .locker-num {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #444;
+}
+
+/* Status Colors */
+.locker-slot.booked {
+    background: linear-gradient(135deg, #f87171, #ef4444);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.locker-slot.booked .locker-num {
+    color: white;
+    opacity: 0.8;
+}
+
+.locker-dot {
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+}
+
+/* Bank Base (Legs/Footer) */
+.bank-base {
+    height: 10px;
+    background: #111;
+    margin: 0 10px;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* --- MODAL --- */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.booking-modal {
+    background: white;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    color: #333;
+}
+
+.locker-dashboard-container.dark .booking-modal {
+    background: #1e293b;
+    color: white;
+}
+
+.modal-header-simple {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
+.locker-badge {
+    background: #2563eb;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+.price-display {
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 1rem 0;
+    color: #2563eb;
+    font-weight: 800;
+}
+
+.duration-options {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.duration-btn {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: transparent;
+    cursor: pointer;
+    color: inherit;
+}
+
+.duration-btn.active {
+    background: #2563eb;
+    color: white;
+    border-color: #2563eb;
+}
+
+.total-badge {
+    background: #f1f5f9;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 1rem;
+    color: #333;
+}
+
+.upload-box {
+    margin-top: 1rem;
+    border: 2px dashed #ccc;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.upload-label {
+    cursor: pointer;
+    display: block;
+    width: 100%;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.modal-actions button {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.modal-actions .primary {
+    background: #2563eb;
+    color: white;
+}
+
+/* Spinner */
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #2563eb;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 3rem auto;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .locker-banks-grid {
+        gap: 2rem;
+    }
+
+    .locker-bank-unit {
+        width: 160px;
+    }
+
+    .locker-slot {
+        height: 50px;
+    }
+}

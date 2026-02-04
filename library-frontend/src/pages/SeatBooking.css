@@ -1,0 +1,954 @@
+/* ==========================================
+   ULTRA-REALISTIC LIBRARY THEMES
+   High-Fidelity Textures, Lighting, & 3D Depth
+   ========================================== */
+
+:root {
+    /* Global Lighting & Depth */
+    --ambient-light: rgba(255, 255, 255, 0.1);
+    --shadow-soft: 2px 4px 8px rgba(0, 0, 0, 0.2);
+    --shadow-deep: 5px 10px 20px rgba(0, 0, 0, 0.4);
+    --shadow-ground: 0 15px 30px -10px rgba(0, 0, 0, 0.6);
+    --highlight_sheen: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, transparent 40%);
+}
+
+/* --- THEME DEFINITIONS (Ultra-Realism) --- */
+
+/* 🏛️ Room A: Classic (Mahogany & Leather) */
+.seat-booking-container.classic {
+    --theme-bg: #2c1810;
+    --theme-text: #fef3c7;
+    --table-text: #fef3c7;
+    /* Contrast fix var */
+    /* Realistic Parquet Floor */
+    --floor-pattern:
+        conic-gradient(at 0% 0%, #3e1b04 25%, #5d2906 25% 50%, #3e1b04 50% 75%, #5d2906 75%) 0 0 / 40px 40px;
+
+    /* Mahogany Wood Table */
+    --table-gradient:
+        linear-gradient(135deg, rgba(0, 0, 0, 0.2), transparent),
+        repeating-linear-gradient(45deg, #422006, #5d2906 2px, #422006 4px);
+
+    /* Tufted Leather Chair */
+    --chair-gradient: radial-gradient(circle at 30% 30%, #15803d, #064e3b 80%);
+    --chair-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23000' fill-opacity='0.2'/%3E%3C/svg%3E");
+}
+
+/* 💡 Room B: Modern (Glass & Metal) */
+.seat-booking-container.modern {
+    --theme-bg: #f1f5f9;
+    --theme-text: #0f172a;
+    --table-text: #1e293b;
+    /* Dark text for light table */
+    /* Polished Marble/Concrete */
+    --floor-pattern:
+        radial-gradient(circle at 50% 50%, #f8fafc, #cbd5e1 120%);
+
+    /* Glossy White Table */
+    --table-gradient: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+
+    /* Mesh Chair */
+    --chair-gradient: linear-gradient(to bottom, #3b82f6, #2563eb);
+    --chair-texture: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.1) 2px, rgba(0, 0, 0, 0.1) 4px);
+}
+
+.seat-booking-container.modern.dark {
+    --theme-bg: #0f172a;
+    --table-text: #f8fafc;
+    /* Revert to light text for dark mode */
+    --floor-pattern: radial-gradient(circle at 50% 50%, #1e293b, #0f172a 120%);
+}
+
+/* 🎨 Room C: Creative (Studio Vibration) */
+.seat-booking-container.creative {
+    --theme-bg: #fffbeb;
+    --theme-text: #78350f;
+    --table-text: #78350f;
+    /* Splattered Floor */
+    --floor-pattern:
+        radial-gradient(circle at 20% 80%, rgba(239, 68, 68, 0.1) 0%, transparent 10%),
+        radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.1) 0%, transparent 10%),
+        linear-gradient(#f3f4f6, #f3f4f6);
+
+    /* Pop Plastic Table */
+    --table-gradient: linear-gradient(135deg, #fcd34d, #fbbf24);
+
+    /* Smooth Plastic Chair */
+    --chair-gradient: radial-gradient(circle at 30% 30%, #f87171, #ef4444);
+    --chair-texture: none;
+}
+
+.seat-booking-container.creative.dark {
+    --theme-bg: #292524;
+}
+
+/* 📜 Room D: Archive (Vintage Stone) */
+.seat-booking-container.archive {
+    --theme-bg: #e7e5e4;
+    --theme-text: #44403c;
+    --table-text: #e7e5e4;
+    /* Correction */
+    /* Cracked Stone Tile */
+    --floor-pattern:
+        linear-gradient(45deg, #d6d3d1 25%, transparent 25%, transparent 75%, #d6d3d1 75%, #d6d3d1),
+        linear-gradient(45deg, #d6d3d1 25%, transparent 25%, transparent 75%, #d6d3d1 75%, #d6d3d1);
+
+    /* Aged Oak Table */
+    --table-gradient: repeating-linear-gradient(90deg, #573a26, #78350f 10px, #451a03 20px);
+
+    /* Fabric Chair */
+    --chair-gradient: linear-gradient(#57534e, #44403c);
+    --chair-texture: repeating-radial-gradient(circle, transparent 0, transparent 2px, rgba(0, 0, 0, 0.1) 3px);
+}
+
+.seat-booking-container.archive.dark {
+    --theme-bg: #1c1917;
+}
+
+/* 🌿 Room E: Nature (Greenhouse) */
+.seat-booking-container.nature {
+    --theme-bg: #ecfdf5;
+    --theme-text: #065f46;
+    --table-text: #f0fdf4;
+    /* 3D Grass Effect */
+    --floor-pattern:
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 2px, transparent 2.5px),
+        linear-gradient(to bottom, #86efac, #4ade80);
+
+    /* Bamboo Table */
+    --table-gradient: repeating-linear-gradient(90deg, #d4a373 0, #d4a373 10px, #a16207 11px, #a16207 12px);
+
+    /* Leaf Chair */
+    --chair-gradient: linear-gradient(to bottom right, #a3e635, #65a30d);
+    --chair-texture: linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
+    /* Veins */
+}
+
+.seat-booking-container.nature.dark {
+    --theme-bg: #064e3b;
+}
+
+
+/* --- LAYOUT & STRUCTURAL --- */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.seat-booking-container {
+    min-height: 100vh;
+    padding: 2rem;
+    background-color: var(--theme-bg);
+    color: var(--theme-text);
+    transition: background 0.5s ease;
+}
+
+/* Header */
+.page-header {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    padding: 1rem 2rem;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    /* Responsive wrap */
+}
+
+/* Room Tiles */
+.room-selector {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    /* Wrap on mobile */
+}
+
+.room-tab {
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.6);
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.room-tab:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.room-tab.active {
+    background: linear-gradient(135deg, white, #f1f5f9);
+    color: #000;
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* --- ULTRA-REALISTIC ROOM FLOOR --- */
+.library-room-layout {
+    width: 100%;
+    /* Fluid width */
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 4rem;
+    background: var(--floor-pattern);
+    border-radius: 20px;
+    box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.5), 0 20px 50px rgba(0, 0, 0, 0.3);
+    /* Vignette & Depth */
+    border: 12px solid rgba(0, 0, 0, 0.2);
+    /* Wall thickness */
+    position: relative;
+    /* perspective: 1200px; Removed for mobile stability */
+    box-sizing: border-box;
+    overflow-x: auto;
+    /* Allow scrolling if content overflows */
+}
+
+.library-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    /* Fluid Responsive Grid */
+    gap: 4rem;
+    margin: 3rem 0;
+    justify-items: center;
+}
+
+.library-table-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0px;
+    /* Tighter layout */
+    transform-style: preserve-3d;
+    max-width: 200px;
+    /* Constrain unit width */
+}
+
+/* --- HIGH-FIDELITY TABLES --- */
+.table-surface {
+    width: 160px;
+    height: 100px;
+    background: var(--table-gradient);
+    border-radius: 8px;
+    box-shadow: var(--shadow-ground), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 12px;
+    color: var(--table-text);
+    /* Use Contrast Var */
+    font-weight: 700;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 20;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Table Gloss/Sheen */
+.table-surface::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--highlight_sheen);
+    border-radius: 8px;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* Table Legs (Implied by deep shadow or pseudo?) */
+/* Let's use pseudo for legs peaking out slightly if theme allows, simpler to use deep shadow for floating effect */
+
+/* Table Decor */
+.decor-left,
+.decor-right {
+    font-size: 1.5rem;
+    filter: drop-shadow(0 4px 2px rgba(0, 0, 0, 0.3));
+    transform: translateZ(10px);
+    /* Lift */
+}
+
+
+/* --- HIGH-FIDELITY CHAIRS --- */
+.chairs-row {
+    display: flex;
+    gap: 16px;
+    margin: -5px 0;
+    z-index: 10;
+}
+
+.chairs-row.top {
+    z-index: 10;
+    margin-bottom: -15px;
+}
+
+/* Tuck under table */
+.chairs-row.bottom {
+    z-index: 30;
+    margin-top: -15px;
+}
+
+/* Overlap table */
+
+.library-chair {
+    width: 40px;
+    height: 38px;
+    background: var(--chair-gradient);
+    border-radius: 8px 8px 12px 12px;
+    /* Ergonomic Curve */
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Visual Legs Peaking Out */
+.library-chair::before {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 6px;
+    width: 4px;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 24px 0 0 rgba(0, 0, 0, 0.5);
+    /* Twin leg */
+    z-index: -1;
+}
+
+/* Texture Overlay */
+.library-chair::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: var(--chair-texture);
+    opacity: 0.3;
+    border-radius: inherit;
+}
+
+/* Add Lumbar Curve Highlight via gradient */
+.library-chair {
+    background-image: var(--chair-texture), linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, transparent 40%);
+}
+
+.library-chair:hover {
+    transform: scale(1.15) translateY(-5px);
+    box-shadow: var(--shadow-deep);
+    z-index: 50;
+}
+
+.library-chair.booked {
+    background: radial-gradient(circle at 30% 30%, #f87171, #b91c1c);
+    cursor: not-allowed;
+}
+
+.library-chair.empty {
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+/* --- TEACHER DESKS --- */
+.teacher-row {
+    display: flex;
+    justify-content: space-around;
+    padding: 2rem 0;
+    gap: 2rem;
+    flex-wrap: wrap;
+    /* Wrap on mobile */
+}
+
+.teacher-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: -10px;
+}
+
+.teacher-desk {
+    width: 90px;
+    height: 60px;
+    background: var(--table-gradient);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--table-text);
+    font-size: 0.75rem;
+    font-weight: bold;
+    box-shadow: var(--shadow-deep);
+    position: relative;
+    z-index: 15;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Desk Accessories (Laptop etc generic) */
+.teacher-desk::before {
+    content: '💻';
+    position: absolute;
+    top: -15px;
+    right: 5px;
+    font-size: 1.2rem;
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.4));
+}
+
+.teacher-chair {
+    width: 48px;
+    height: 44px;
+    background: var(--chair-gradient);
+    border-radius: 8px;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    z-index: 5;
+    margin-bottom: -15px;
+    /* Tuck */
+}
+
+.teacher-chair::before {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 8px;
+    width: 4px;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 28px 0 0 rgba(0, 0, 0, 0.5);
+    /* Legs */
+    z-index: -1;
+}
+
+.teacher-unit.bottom .teacher-chair {
+    margin-bottom: 0;
+    margin-top: -15px;
+    z-index: 20;
+}
+
+/* Teacher Chair Arms */
+.teacher-chair::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: -4px;
+    width: 4px;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+    box-shadow: 52px 0 0 rgba(0, 0, 0, 0.3);
+    /* Right Arm */
+}
+
+
+/* Modal (Glassmorphism) */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.booking-modal {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2.5rem;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.seat-booking-container.dark .booking-modal {
+    background: rgba(30, 41, 59, 0.95);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.modal-actions button {
+    flex: 1;
+    padding: 12px;
+    margin-top: 1rem;
+    cursor: pointer;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    transition: transform 0.1s;
+}
+
+.modal-actions button:active {
+    transform: scale(0.98);
+}
+
+.modal-actions .primary {
+    background: #2563eb;
+    color: white;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 768px) {
+    .seat-booking-container {
+        padding: 1rem;
+    }
+
+    .room-selector {
+        gap: 0.5rem;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding-bottom: 10px;
+    }
+
+    .room-tab {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+        white-space: nowrap;
+    }
+
+    .library-room-layout {
+        padding: 1.5rem;
+    }
+
+    .library-grid {
+        gap: 2rem;
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 cols for tablet/large phone */
+    }
+
+    .teacher-row {
+        gap: 1rem;
+    }
+
+    .teacher-desk {
+        width: 60px;
+        height: 50px;
+    }
+
+    /* Scale down furniture slighty */
+    .table-surface {
+        width: 130px;
+        height: 80px;
+        font-size: 0.8rem;
+    }
+
+    .library-chair {
+        width: 32px;
+        height: 30px;
+    }
+
+    .decor-left,
+    .decor-right {
+        font-size: 1.2rem;
+    }
+
+    .chairs-row {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .library-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Single col stack for small phones */
+    .teacher-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-items: center;
+    }
+
+    /* Stack teachers */
+}
+
+/* ==========================================
+   DARK MODE VISIBILITY FIXES
+   Ensuring all text is readable in dark mode
+   ========================================== */
+
+/* Force light text in dark mode for all themes */
+.seat-booking-container.dark {
+    --theme-text: #f8fafc;
+    color: #f8fafc;
+}
+
+.seat-booking-container.dark .page-header {
+    background: rgba(30, 41, 59, 0.85);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.seat-booking-container.dark .page-header h1 {
+    color: #f8fafc;
+}
+
+.seat-booking-container.dark .back-btn {
+    color: #f8fafc;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.seat-booking-container.dark .back-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.seat-booking-container.dark .room-tab {
+    background: rgba(30, 41, 59, 0.9);
+    color: #e2e8f0;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.seat-booking-container.dark .room-tab:hover {
+    background: rgba(55, 65, 81, 0.95);
+    border-color: rgba(99, 102, 241, 0.5);
+}
+
+.seat-booking-container.dark .room-tab.active {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+}
+
+/* Room layout dark mode */
+.seat-booking-container.dark .library-room-layout {
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8), 0 20px 60px rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Table text visibility in dark mode */
+.seat-booking-container.dark .table-surface {
+    color: #fef3c7;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.seat-booking-container.dark .table-label {
+    color: #fef3c7;
+}
+
+.seat-booking-container.dark .teacher-desk {
+    color: #fef3c7;
+}
+
+/* ==========================================
+   ENHANCED 3D EFFECTS & ANIMATIONS
+   More realistic and interactive furniture
+   ========================================== */
+
+/* Enhanced Chair Animations */
+.library-chair {
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+}
+
+.library-chair::before {
+    transition: all 0.3s ease;
+}
+
+.library-chair.available {
+    animation: pulse-available 2s infinite ease-in-out;
+    cursor: pointer;
+}
+
+@keyframes pulse-available {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(78, 205, 196, 0.4), var(--shadow-soft);
+    }
+
+    50% {
+        box-shadow: 0 0 0 8px rgba(78, 205, 196, 0), var(--shadow-soft);
+    }
+}
+
+.library-chair:hover {
+    transform: scale(1.2) translateY(-8px) rotateX(5deg);
+    box-shadow:
+        0 15px 30px -5px rgba(0, 0, 0, 0.4),
+        0 0 0 3px rgba(78, 205, 196, 0.5);
+    z-index: 100;
+}
+
+.library-chair:hover::before {
+    height: 12px;
+}
+
+/* Enhanced Table 3D Effect */
+.table-surface {
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
+}
+
+.table-surface:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow:
+        0 20px 40px -10px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Seat Status Colors - Enhanced */
+.library-chair.available {
+    background: linear-gradient(135deg, #4ade80 0%, #22c55e 50%, #16a34a 100%);
+    box-shadow:
+        0 4px 8px rgba(34, 197, 94, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.library-chair.booked {
+    background: linear-gradient(135deg, #f87171 0%, #ef4444 50%, #dc2626 100%);
+    cursor: not-allowed;
+    box-shadow:
+        0 4px 8px rgba(239, 68, 68, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    opacity: 0.85;
+}
+
+.library-chair.hold {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+    cursor: not-allowed;
+    animation: pulse-hold 1.5s infinite;
+}
+
+@keyframes pulse-hold {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* Room Capacity Badge */
+.room-capacity {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.seat-booking-container.dark .room-capacity {
+    background: rgba(30, 41, 59, 0.8);
+    color: #e2e8f0;
+}
+
+/* Legend Styles */
+.status-legend {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.legend-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+}
+
+.legend-dot.available {
+    background: linear-gradient(135deg, #4ade80, #16a34a);
+}
+
+.legend-dot.booked {
+    background: linear-gradient(135deg, #f87171, #dc2626);
+}
+
+.legend-dot.hold {
+    background: linear-gradient(135deg, #fbbf24, #d97706);
+}
+
+.seat-booking-container.dark .legend-item {
+    color: #e2e8f0;
+}
+
+/* Enhanced Modal Glassmorphism */
+.seat-booking-container.dark .booking-modal {
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+        0 30px 60px -12px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.seat-booking-container.dark .booking-modal h2 {
+    color: #f8fafc;
+}
+
+.seat-booking-container.dark .booking-modal select,
+.seat-booking-container.dark .booking-modal input {
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #f8fafc;
+}
+
+.seat-booking-container.dark .booking-modal select:focus,
+.seat-booking-container.dark .booking-modal input:focus {
+    border-color: #4ECDC4;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.2);
+}
+
+/* Enhanced Button Styles */
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.modal-actions button {
+    transition: all 0.25s ease;
+}
+
+.modal-actions button:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.modal-actions button.primary {
+    background: linear-gradient(135deg, #4ECDC4, #44a8a0);
+    box-shadow: 0 4px 15px rgba(78, 205, 196, 0.4);
+}
+
+.modal-actions button.primary:hover:not(:disabled) {
+    background: linear-gradient(135deg, #5dd9d0, #4ECDC4);
+    box-shadow: 0 6px 20px rgba(78, 205, 196, 0.5);
+}
+
+/* Teacher Desk Enhanced */
+.teacher-desk {
+    transition: all 0.3s ease;
+}
+
+.teacher-desk:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.4);
+}
+
+.teacher-chair {
+    transition: all 0.3s ease;
+}
+
+.teacher-unit:hover .teacher-chair {
+    transform: translateY(-3px);
+}
+
+/* Room Tab Icons */
+.room-tab {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+}
+
+/* Success Animation */
+.success-message {
+    animation: success-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    text-align: center;
+    padding: 2rem;
+}
+
+@keyframes success-pop {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.success-message h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Loading Screen Enhancement */
+.loading-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    color: #e2e8f0;
+    animation: loading-pulse 1.5s infinite;
+}
+
+@keyframes loading-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+}
+
+/* Header Improvements */
+.header-info h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.theme-toggle {
+    padding: 0.75rem;
+    font-size: 1.25rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(20deg) scale(1.1);
+}
+
+.seat-booking-container.dark .theme-toggle {
+    background: rgba(30, 41, 59, 0.8);
+}
+
+/* Decor items animation */
+.decor-left,
+.decor-right {
+    transition: transform 0.5s ease;
+}
+
+.library-table-unit:hover .decor-left {
+    transform: translateZ(15px) rotate(-5deg);
+}
+
+.library-table-unit:hover .decor-right {
+    transform: translateZ(15px) rotate(5deg);
+}

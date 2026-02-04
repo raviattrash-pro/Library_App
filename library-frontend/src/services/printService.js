@@ -1,7 +1,7 @@
 import axios from 'axios';
 import config from '../config';
 
-const API_URL = 'http://localhost:8082/print';
+const API_URL = '/print';
 
 const createRequest = async (userId, printType, copies, cost, documentFile, paymentFile) => {
     const formData = new FormData();

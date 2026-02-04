@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import lostFoundService from '../../services/lostFoundService';
+import config from '../../config';
 import { useTheme } from '../../context/ThemeContext';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -64,7 +65,7 @@ const AdminLostFound = () => {
     const getImageUrl = (path) => {
         if (!path) return null;
         if (path.startsWith('http')) return path;
-        return `http://localhost:8082${path}`;
+        return `${config.API_BASE_URL}${path}`;
     };
 
     const containerStyle = {

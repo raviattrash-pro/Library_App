@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import printService from '../../services/printService';
 import authService from '../../services/authService';
+import config from '../../config';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaPrint, FaFileAlt, FaCheck, FaTimes, FaExchangeAlt, FaUser, FaPhone, FaEnvelope, FaArrowLeft, FaCog, FaSave } from 'react-icons/fa';
@@ -283,8 +284,8 @@ const AdminPrintQueue = () => {
                                 const fullName = user.firstName ? `${user.firstName} ${user.lastName}` : user.username || `User ${req.userId}`;
 
                                 // Prefix backend URL for files
-                                const fileUrl = req.fileUrl ? `http://localhost:8082${req.fileUrl}` : '#';
-                                const paymentUrl = req.paymentScreenshotUrl ? `http://localhost:8082${req.paymentScreenshotUrl}` : '#';
+                                const fileUrl = req.fileUrl ? `${config.API_BASE_URL}${req.fileUrl}` : '#';
+                                const paymentUrl = req.paymentScreenshotUrl ? `${config.API_BASE_URL}${req.paymentScreenshotUrl}` : '#';
 
                                 return (
                                     <motion.tr

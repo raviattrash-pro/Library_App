@@ -1,7 +1,7 @@
 import axios from 'axios';
 import config from '../config';
 
-const API_URL = 'http://localhost:8082/maintenance';
+const API_URL = '/maintenance';
 
 const createRequest = async (userId, userName, userEmail, userPhone, type, description, imageFile) => {
     const formData = new FormData();

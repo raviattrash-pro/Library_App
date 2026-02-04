@@ -1,7 +1,7 @@
 import axios from 'axios';
 import config from '../config';
 
-const API_URL = 'http://localhost:8082/lost-found';
+const API_URL = '/lost-found';
 
 const getAllItems = async () => {
     const response = await axios.get(API_URL);

@@ -41,6 +41,19 @@ public class GatewayConfiguration {
                                                 + route.getPredicate());
                         });
                         System.out.println("_________________________");
-                };
+                    @Bean
+    @org.springframework.core.annotation.Order(org.springframework.core.Ordered.HIGHEST_PRECEDENCE)
+    public org.springframework.cloud.gateway.filter.GlobalFilter normalizePathFilter() {
+        return (exchange, chain) -> {
+            String path = exchange.getRequest().getURI().getRawPath();
+            String newPath = path.replaceAll("/{2,}", "/");
+            if (!newPath.equals(path)) {
+                org.springframework.http.server.reactive.ServerHttpRequest request = exchange.getRequest().mutate().path(newPath).build();
+                return chain.filter(exchange.mutate().request(request).build());
+            }
+            return chain.filter(exchange);
+        };
+    }
+};
         }
 }

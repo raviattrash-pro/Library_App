@@ -1,5 +1,4 @@
-import axios from 'axios';
-import config from '../config';
+import api from './api';
 
 const API_URL = '/maintenance';
 
@@ -15,7 +14,7 @@ const createRequest = async (userId, userName, userEmail, userPhone, type, descr
         formData.append('image', imageFile);
     }
 
-    const response = await axios.post(API_URL, formData, {
+    const response = await api.post(API_URL, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
@@ -24,17 +23,17 @@ const createRequest = async (userId, userName, userEmail, userPhone, type, descr
 };
 
 const getRequestsByUser = async (userId) => {
-    const response = await axios.get(`${API_URL}/user/${userId}`);
-    return response.data;
+    const response = await api.get(`${API_URL}/user/${userId}`);
+    return response.data || [];
 };
 
 const getAllRequests = async () => {
-    const response = await axios.get(API_URL);
-    return response.data;
+    const response = await api.get(API_URL);
+    return response.data || [];
 };
 
 const updateStatus = async (id, status) => {
-    const response = await axios.put(`${API_URL}/${id}/status`, null, {
+    const response = await api.put(`${API_URL}/${id}/status`, null, {
         params: { status },
     });
     return response.data;

@@ -43,7 +43,7 @@ const PrintServicePage = () => {
 
     const fetchQrCode = async () => {
         try {
-            const response = await axios.get('http://localhost:8082/api/v1/admin/qr');
+            const response = await qrService.getQRCode();
             setQrCode(response.data);
         } catch (error) {
             console.error("Error fetching QR code:", error);

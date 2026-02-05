@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import ServiceHealthMonitor from '../components/ServiceHealthMonitor';
 import './Dashboard.css';
 
 function AdminDashboard() {
@@ -22,6 +23,7 @@ function AdminDashboard() {
                 <div className="welcome-section glass-card">
                     <h1>⚙️ Admin Control Panel</h1>
                     <p>Manage seats, fees, users, and bookings</p>
+                    <ServiceHealthMonitor />
                 </div>
 
                 <div className="quick-actions">

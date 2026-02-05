@@ -97,4 +97,10 @@ public class SeatController {
                 "studentSeats", 48,
                 "teacherSeats", 8));
     }
+
+    @GetMapping("/health")
+    @Operation(summary = "Health check")
+    public ResponseEntity<String> health() {
+        return ResponseEntity.ok("Library Service is running");
+    }
 }

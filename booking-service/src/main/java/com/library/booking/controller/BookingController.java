@@ -108,4 +108,10 @@ public class BookingController {
     public ResponseEntity<Map<String, Object>> getRevenue() {
         return ResponseEntity.ok(Map.of("totalRevenue", bookingService.calculateTotalRevenue()));
     }
+
+    @GetMapping("/health")
+    @Operation(summary = "Health check")
+    public ResponseEntity<String> health() {
+        return ResponseEntity.ok("Booking Service is running");
+    }
 }

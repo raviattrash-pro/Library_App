@@ -1,0 +1,63 @@
+.service-health-monitor {
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(30, 41, 59, 0.6);
+    border-radius: 12px;
+}
+
+.service-health-monitor h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #cbd5e1;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 8px;
+}
+
+.status-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #e2e8f0;
+}
+
+.status-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+    transition: all 0.3s ease;
+}
+
+.status-indicator.online {
+    background-color: #10b981;
+    box-shadow: 0 0 8px #10b981;
+}
+
+.status-indicator.offline {
+    background-color: #ef4444;
+}
+
+.status-indicator.loading {
+    background-color: #f59e0b;
+    animation: pulse 1s infinite alternate;
+}
+
+.waking-up {
+    font-size: 0.8rem;
+    color: #f59e0b;
+    margin-left: 5px;
+    font-style: italic;
+}
+
+@keyframes pulse {
+    from { opacity: 0.5; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1.1); }
+}

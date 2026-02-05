@@ -49,8 +49,6 @@ const AdminOrders = () => {
     const getImageUrl = (path) => {
         if (!path) return null;
         if (path.startsWith('http')) return path;
-        // Direct to library-service for uploads to bypass potential gateway issues with static files
-        if (path.startsWith('/uploads')) return `http://localhost:8082${path}`;
         return `${config.API_BASE_URL}${path}`;
     };
 

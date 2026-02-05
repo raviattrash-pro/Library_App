@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/admin/qr")
-@CrossOrigin(origins = "*")
+
 public class QRCodeController {
 
     @Autowired

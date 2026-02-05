@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/print")
-@CrossOrigin(origins = "*")
+
 public class PrintController {
 
     @Autowired

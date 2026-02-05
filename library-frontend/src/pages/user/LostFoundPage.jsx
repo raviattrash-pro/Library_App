@@ -3,6 +3,7 @@ import lostFoundService from '../../services/lostFoundService';
 import { motion } from 'framer-motion';
 import { FaMapMarkerAlt, FaCalendarAlt, FaTag, FaSearch, FaArrowLeft } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import config from '../../config';
 
 const LostFoundPage = () => {
     const [items, setItems] = useState([]);
@@ -27,7 +28,7 @@ const LostFoundPage = () => {
     const getImageUrl = (url) => {
         if (!url) return null;
         if (url.startsWith('http')) return url;
-        return `http://localhost:8082${url}`;
+        return `${config.API_BASE_URL}${url}`;
     };
 
     return (

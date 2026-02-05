@@ -51,7 +51,7 @@ public class ShiftService {
     @Transactional
     public Shift updateShiftPrice(Long id, Double price) {
         Shift shift = getShiftById(id);
-        shift.setBasePrice(price);
+        shift.setBasePrice(java.math.BigDecimal.valueOf(price));
         return shiftRepository.save(shift);
     }
 

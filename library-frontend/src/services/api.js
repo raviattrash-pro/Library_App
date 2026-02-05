@@ -3,6 +3,7 @@ import config from '../config';
 
 const api = axios.create({
     baseURL: config.API_BASE_URL,
+    timeout: 90000, // 90 seconds to match Gateway timeout
     headers: {
         'Content-Type': 'application/json'
     }

@@ -45,6 +45,12 @@ public class ShiftController {
         return ResponseEntity.ok(shiftService.updateShift(id, shift));
     }
 
+    @PutMapping("/{id}/price")
+    @Operation(summary = "Update shift price")
+    public ResponseEntity<Shift> updateShiftPrice(@PathVariable Long id, @RequestParam Double price) {
+        return ResponseEntity.ok(shiftService.updateShiftPrice(id, price));
+    }
+
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete shift")
     public ResponseEntity<Void> deleteShift(@PathVariable Long id) {

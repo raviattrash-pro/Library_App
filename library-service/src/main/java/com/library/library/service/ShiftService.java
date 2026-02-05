@@ -49,6 +49,13 @@ public class ShiftService {
     }
 
     @Transactional
+    public Shift updateShiftPrice(Long id, Double price) {
+        Shift shift = getShiftById(id);
+        shift.setBasePrice(price);
+        return shiftRepository.save(shift);
+    }
+
+    @Transactional
     public void deleteShift(Long id) {
         shiftRepository.deleteById(id);
     }

@@ -1,5 +1,4 @@
-import axios from 'axios';
-import config from '../config';
+import api from './api';
 
 const API_URL = '/print';
 
@@ -16,7 +15,7 @@ const createRequest = async (userId, printType, copies, cost, documentFile, paym
         formData.append('payment', paymentFile);
     }
 
-    const response = await axios.post(API_URL, formData, {
+    const response = await api.post(API_URL, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
@@ -25,24 +24,24 @@ const createRequest = async (userId, printType, copies, cost, documentFile, paym
 };
 
 const getAllRequests = async () => {
-    const response = await axios.get(API_URL);
+    const response = await api.get(API_URL);
     return response.data;
 };
 
 const getRequestsByUser = async (userId) => {
-    const response = await axios.get(`${API_URL}/user/${userId}`);
+    const response = await api.get(`${API_URL}/user/${userId}`);
     return response.data;
 };
 
 const updateStatus = async (id, status) => {
-    const response = await axios.put(`${API_URL}/${id}/status`, null, {
+    const response = await api.put(`${API_URL}/${id}/status`, null, {
         params: { status },
     });
     return response.data;
 };
 
 const getSettings = async () => {
-    const response = await axios.get(`${API_URL}/settings`);
+    const response = await api.get(`${API_URL}/settings`);
     return response.data;
 };
 
@@ -51,7 +50,7 @@ const updateSettings = async (bwCost, colorCost) => {
     if (bwCost !== undefined) params.append('blackAndWhiteCost', bwCost);
     if (colorCost !== undefined) params.append('colorCost', colorCost);
 
-    const response = await axios.put(`${API_URL}/settings`, null, { params });
+    const response = await api.put(`${API_URL}/settings`, null, { params });
     return response.data;
 };
 

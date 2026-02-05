@@ -206,45 +206,117 @@ function AdminSeatManagement() {
                 <div className="legend-item"><div className="dot orange"></div> Maintenance</div>
             </div>
 
-            <div className="rooms-grid">
+            <style>{`
+                .rooms-container {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                    gap: 2rem;
+                }
+                .room-card {
+                    background: rgba(30, 41, 59, 0.6);
+                    backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    border-radius: 16px;
+                    padding: 1.5rem;
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                }
+                .room-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 1.5rem;
+                    border-bottom: 1px solid rgba(255,255,255,0.1);
+                    padding-bottom: 0.5rem;
+                }
+                .room-title {
+                    font-size: 1.25rem;
+                    font-weight: 700;
+                    color: #fff;
+                }
+                .seat-grid {
+                    display: grid;
+                    grid-template-columns: repeat(5, 1fr);
+                    gap: 10px;
+                }
+                .seat-item {
+                    aspect-ratio: 1;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 8px;
+                    font-size: 0.8rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                    position: relative;
+                    border: 1px solid rgba(255,255,255,0.1);
+                    background: rgba(255,255,255,0.05);
+                    color: #aaa;
+                }
+                .seat-item:hover {
+                    transform: scale(1.1);
+                    z-index: 10;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                }
+                .seat-item.available {
+                    background: rgba(16, 185, 129, 0.2);
+                    border-color: rgba(16, 185, 129, 0.5);
+                    color: #34d399;
+                }
+                .seat-item.booked {
+                    background: rgba(239, 68, 68, 0.2);
+                    border-color: rgba(239, 68, 68, 0.5);
+                    color: #f87171;
+                }
+                .seat-item.maintenance {
+                    background: rgba(245, 158, 11, 0.2);
+                    border-color: rgba(245, 158, 11, 0.5);
+                    color: #fbbf24;
+                }
+                .seat-tooltip {
+                    position: absolute;
+                    bottom: 100%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: #1e293b;
+                    padding: 4px 8px;
+                    border-radius: 4px;
+                    font-size: 0.7rem;
+                    white-space: nowrap;
+                    pointer-events: none;
+                    opacity: 0;
+                    transition: opacity 0.2s;
+                    z-index: 20;
+                    border: 1px solid rgba(255,255,255,0.1);
+                }
+                .seat-item:hover .seat-tooltip {
+                    opacity: 1;
+                }
+            `}</style>
+
+            <div className="rooms-container">
                 {rooms.map(room => (
                     <div key={room} className="room-card">
-                        <div className="room-card-header">
-                            <h3>Room {room}</h3>
-                            <span className="badge">{getRoomSeats(room).length} seats</span>
+                        <div className="room-header">
+                            <h3 className="room-title">Room {room}</h3>
+                            <span className="badge" style={{ background: 'rgba(255,255,255,0.1)', padding: '4px 8px', borderRadius: '4px', fontSize: '0.8rem' }}>
+                                {getRoomSeats(room).length} Seats
+                            </span>
                         </div>
-                        <div className="seat-grid-container">
+                        <div className="seat-grid">
                             {sortSeats(getRoomSeats(room)).map(seat => {
                                 const { status, details } = getSeatStatusForFilter(seat);
                                 return (
                                     <div
                                         key={seat.id}
-                                        className="seat-wrapper"
+                                        className={`seat-item ${status.toLowerCase()}`}
                                         onClick={() => handleSeatClick(seat, { status, details })}
-                                        title={status === 'BOOKED'
-                                            ? `Booked by: ${details.userName}\nSlot: ${details.shiftName}`
-                                            : `Seat ${seat.seatNumber}: ${status}`}
                                     >
-                                        <div className={`seat-icon ${status.toLowerCase()}`}>
-                                            {seat.seatNumber}
-                                        </div>
+                                        {seat.seatNumber}
                                         {status === 'BOOKED' && (
-                                            <div style={{
-                                                position: 'absolute',
-                                                top: -8,
-                                                right: -8,
-                                                background: '#2d3436',
-                                                border: '1px solid red',
-                                                borderRadius: '4px',
-                                                padding: '2px 4px',
-                                                fontSize: '0.6rem',
-                                                color: 'white',
-                                                zIndex: 10,
-                                                whiteSpace: 'nowrap',
-                                                maxWidth: '80px',
-                                                overflow: 'hidden',
-                                                textOverflow: 'ellipsis'
-                                            }}>
+                                            <div className="seat-tooltip">
                                                 {details.userName.split(' ')[0]}
                                             </div>
                                         )}

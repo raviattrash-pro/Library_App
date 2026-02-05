@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/lost-found")
-@CrossOrigin(origins = "*")
+
 public class LostItemController {
 
     @Autowired

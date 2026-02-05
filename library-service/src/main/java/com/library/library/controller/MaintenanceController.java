@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/maintenance")
-@CrossOrigin(origins = "*") // Allow requests from React frontend
+
 public class MaintenanceController {
 
     @Autowired

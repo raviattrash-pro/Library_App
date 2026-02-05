@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/attendance")
-@CrossOrigin(origins = "*")
+
 public class DeskAttendanceController {
 
     @Autowired

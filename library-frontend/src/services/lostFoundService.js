@@ -1,16 +1,15 @@
-import axios from 'axios';
-import config from '../config';
+import api from './api';
 
 const API_URL = '/lost-found';
 
 const getAllItems = async () => {
-    const response = await axios.get(API_URL);
-    return response.data;
+    const response = await api.get(API_URL);
+    return response.data || [];
 };
 
 const getFoundItems = async () => {
-    const response = await axios.get(`${API_URL}/found`);
-    return response.data;
+    const response = await api.get(`${API_URL}/found`);
+    return response.data || [];
 };
 
 const addItem = async (title, description, location, dateFound, imageFile) => {
@@ -23,7 +22,7 @@ const addItem = async (title, description, location, dateFound, imageFile) => {
         formData.append('image', imageFile);
     }
 
-    const response = await axios.post(API_URL, formData, {
+    const response = await api.post(API_URL, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
@@ -32,7 +31,7 @@ const addItem = async (title, description, location, dateFound, imageFile) => {
 };
 
 const markClaimed = async (id) => {
-    const response = await axios.put(`${API_URL}/${id}/claim`);
+    const response = await api.put(`${API_URL}/${id}/claim`);
     return response.data;
 };
 

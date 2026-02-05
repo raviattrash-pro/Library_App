@@ -10,6 +10,8 @@ const shiftService = {
 
     updateShift: (id, shiftData) => api.put(`${config.API_ENDPOINTS.SHIFTS}/${id}`, shiftData),
 
+    updateShiftPrice: (id, price) => api.put(`${config.API_ENDPOINTS.SHIFTS}/${id}/price?price=${price}`),
+
     deleteShift: (id) => api.delete(`${config.API_ENDPOINTS.SHIFTS}/${id}`)
 };
 

@@ -1,39 +1,38 @@
-import axios from 'axios';
-import config from '../config';
+import api from './api';
 
-const MENU_API_URL = `${config.API_BASE_URL}/menu`;
-const ORDER_API_URL = `${config.API_BASE_URL}/orders`;
+const MENU_API_URL = '/menu';
+const ORDER_API_URL = '/orders';
 
 // Menu
 const getAvailableMenu = async () => {
-    const response = await axios.get(`${MENU_API_URL}/available`);
+    const response = await api.get(`${MENU_API_URL}/available`);
     return response.data;
 };
 
 const getAllMenu = async () => {
-    const response = await axios.get(MENU_API_URL);
+    const response = await api.get(MENU_API_URL);
     return response.data;
 };
 
 const addMenuItem = async (item) => {
-    const response = await axios.post(MENU_API_URL, item);
+    const response = await api.post(MENU_API_URL, item);
     return response.data;
 };
 
 const updateItemAvailability = async (id, available) => {
-    const response = await axios.put(`${MENU_API_URL}/${id}/availability`, null, {
+    const response = await api.put(`${MENU_API_URL}/${id}/availability`, null, {
         params: { available }
     });
     return response.data;
 };
 
 const updateMenuItem = async (id, item) => {
-    const response = await axios.put(`${MENU_API_URL}/${id}`, item);
+    const response = await api.put(`${MENU_API_URL}/${id}`, item);
     return response.data;
 };
 
 const deleteMenuItem = async (id) => {
-    await axios.delete(`${MENU_API_URL}/${id}`);
+    await api.delete(`${MENU_API_URL}/${id}`);
 };
 
 // Orders
@@ -50,7 +49,7 @@ const placeOrder = async (userId, userName, userEmail, userPhone, seatNumber, it
         formData.append('paymentScreenshot', screenshotFile);
     }
 
-    const response = await axios.post(ORDER_API_URL, formData, {
+    const response = await api.post(ORDER_API_URL, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
@@ -59,17 +58,17 @@ const placeOrder = async (userId, userName, userEmail, userPhone, seatNumber, it
 };
 
 const getAllOrders = async () => {
-    const response = await axios.get(ORDER_API_URL);
+    const response = await api.get(ORDER_API_URL);
     return response.data;
 };
 
 const getOrdersByUser = async (userId) => {
-    const response = await axios.get(`${ORDER_API_URL}/user/${userId}`);
+    const response = await api.get(`${ORDER_API_URL}/user/${userId}`);
     return response.data;
 };
 
 const updateOrderStatus = async (id, status) => {
-    const response = await axios.put(`${ORDER_API_URL}/${id}/status`, null, {
+    const response = await api.put(`${ORDER_API_URL}/${id}/status`, null, {
         params: { status },
     });
     return response.data;

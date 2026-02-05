@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaArrowLeft, FaTools, FaCommentAlt, FaPaperclip, FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
+import config from '../../config';
 
 const MaintenancePage = () => {
     const [user, setUser] = useState(null);
@@ -194,7 +195,7 @@ const MaintenancePage = () => {
                                         <p style={{ color: '#e0e0e0', margin: '0 0 10px 0', lineHeight: '1.5' }}>{req.description}</p>
                                         {req.photoUrl && (
                                             <a
-                                                href={`http://localhost:8082${req.photoUrl}`}
+                                                href={`${config.API_BASE_URL}${req.photoUrl}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 style={{ color: '#818cf8', fontSize: '0.9em', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '5px' }}

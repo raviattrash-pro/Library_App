@@ -26,7 +26,7 @@ public class GatewayConfiguration {
                                 .route("library-service", r -> r.path("/api/v1/seats/**", "/api/v1/shifts/**",
                                                 "/api/v1/admin/**", "/api/lockers/**", "/menu/**", "/orders/**",
                                                 "/api/finance/**", "/print/**", "/uploads/**", "/maintenance/**",
-                                                "/lost-found/**")
+                                                "/lost-found/**", "/api/v1/attendance/**")
                                                 .uri(libraryServiceUrl))
                                 .route("booking-service", r -> r.path("/api/v1/bookings/**")
                                                 .uri(bookingServiceUrl))

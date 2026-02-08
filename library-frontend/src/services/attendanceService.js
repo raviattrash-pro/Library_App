@@ -1,6 +1,6 @@
 import api from './api';
 
-const API_URL = '/attendance';
+const API_URL = '/api/v1/attendance';
 
 const scanQr = async (userId, qrContent) => {
     const response = await api.post(`${API_URL}/scan`, null, {

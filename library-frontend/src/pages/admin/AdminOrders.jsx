@@ -48,6 +48,9 @@ const AdminOrders = () => {
 
     const getImageUrl = (path) => {
         if (!path) return null;
+        if (path.includes('localhost:8082')) {
+            return path.replace('http://localhost:8082', config.API_BASE_URL);
+        }
         if (path.startsWith('http')) return path;
         return `${config.API_BASE_URL}${path}`;
     };

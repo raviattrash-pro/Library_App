@@ -21,8 +21,15 @@ function AdminQRManagement() {
     const fetchQRCode = async () => {
         try {
             const response = await qrService.getQRCode();
-            setCurrentQR(response.data);
-            setQrImage(response.data?.imageUrl || '');
+            const data = response.data;
+            let img = data?.imageUrl || '';
+            if (img && !img.startsWith('data:') && !img.startsWith('http')) {
+                const cleanPath = img.startsWith('/') ? img.substring(1) : img;
+                const baseUrl = config.API_BASE_URL.endsWith('/') ? config.API_BASE_URL : `${config.API_BASE_URL}/`;
+                img = `${baseUrl}${cleanPath}`;
+            }
+            setCurrentQR(data);
+            setQrImage(img);
             setUpiId(response.data?.upiId || '');
         } catch (error) {
             console.log('No QR code found yet');

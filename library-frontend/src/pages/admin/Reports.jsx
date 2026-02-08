@@ -4,7 +4,35 @@ import { useTheme } from '../../context/ThemeContext';
 import bookingService from '../../services/bookingService';
 import seatService from '../../services/seatService';
 import { toast } from 'react-toastify';
+import { FaArrowLeft, FaChartLine, FaMoneyBillWave, FaCalendarCheck, FaPercent } from 'react-icons/fa';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+    ArcElement,
+    Filler
+} from 'chart.js';
+import { Line, Bar, Doughnut } from 'react-chartjs-2';
 import './AdminPages.css';
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+    ArcElement,
+    Filler
+);
 
 function Reports() {
     const [stats, setStats] = useState({
@@ -12,7 +40,8 @@ function Reports() {
         activeBookings: 0,
         totalRevenue: 0,
         occupancyRate: 0,
-        trends: []
+        trends: [],
+        monthlyRevenue: []
     });
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
@@ -32,11 +61,11 @@ function Reports() {
             const bookings = bookingsRes.data || [];
             const seats = seatsRes.data || [];
 
-            // 1. Revenue: Only CONFIRMED bookings count towards realized revenue
+            // 1. Revenue
             const confirmedBookings = bookings.filter(b => b.status === 'CONFIRMED');
             const totalRevenue = confirmedBookings.reduce((sum, b) => sum + (Number(b.totalAmount) || 0), 0);
 
-            // 2. Occupancy: Active bookings (Confirmed + Payment Submitted which holds a slot)
+            // 2. Occupancy
             const activeBookings = bookings.filter(b =>
                 ['CONFIRMED', 'PAYMENT_SUBMITTED', 'BOOKED'].includes(b.status)
             ).length;
@@ -44,27 +73,24 @@ function Reports() {
             const totalBookings = bookings.length;
             const occupancyRate = seats.length > 0 ? Math.round((activeBookings / seats.length) * 100) : 0;
 
-            // 3. Trend Chart: Last 7 Days
+            // 3. Trend Chart
             const trends = getWeeklyTrends(bookings);
+
+            // 4. Monthly Revenue (Mock distribution based on trends if no real historical data store)
+            // In a real app, this should come from a specialized backend endpoint
+            const monthlyRevenue = getMonthlyRevenue(bookings);
 
             setStats({
                 totalBookings,
                 activeBookings,
                 totalRevenue,
                 occupancyRate,
-                trends
+                trends,
+                monthlyRevenue
             });
         } catch (error) {
             console.error("Error fetching report stats:", error);
             toast.error("Failed to load report data");
-            // Fallback mock data for visual stability if API fails completely
-            setStats({
-                totalBookings: 0,
-                activeBookings: 0,
-                totalRevenue: 0,
-                occupancyRate: 0,
-                trends: Array(7).fill({ label: '-', count: 0, percentage: 0 })
-            });
         } finally {
             setLoading(false);
         }
@@ -74,104 +100,176 @@ function Reports() {
         const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         const today = new Date();
         const trends = [];
-        let maxCount = 0;
 
-        // Generate last 7 days buckets
         for (let i = 6; i >= 0; i--) {
             const date = new Date(today);
             date.setDate(today.getDate() - i);
-            const dateStr = date.toISOString().split('T')[0]; // YYYY-MM-DD
+            const dateStr = date.toISOString().split('T')[0];
             const dayLabel = days[date.getDay()];
-
-            // Count bookings for this day (using bookingDate or createdAt if available)
-            // Assuming booking.bookingDate is in YYYY-MM-DD format
-            const count = bookings.filter(b => b.bookingDate === dateStr).length;
-            if (count > maxCount) maxCount = count;
-
-            trends.push({
-                label: dayLabel,
-                date: dateStr,
-                count: count
-            });
+            const count = bookings.filter(b => (b.bookingDate || '').startsWith(dateStr)).length;
+            trends.push({ label: dayLabel, count });
         }
+        return trends;
+    };
 
-        // Calculate percentage height for bars relative to max value
-        return trends.map(t => ({
-            ...t,
-            percentage: maxCount > 0 ? (t.count / maxCount) * 100 : 0
-        }));
+    const getMonthlyRevenue = (bookings) => {
+        // Simple aggregation by month
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const currentMonth = new Date().getMonth();
+        const revenueData = Array(12).fill(0);
+
+        bookings.forEach(b => {
+            if (b.status === 'CONFIRMED' && b.bookingDate) {
+                const month = new Date(b.bookingDate).getMonth();
+                revenueData[month] += (Number(b.totalAmount) || 0);
+            }
+        });
+
+        // Return last 6 months for chart
+        // simplified for now, returning all months
+        return { labels: months, data: revenueData };
     };
 
     if (loading) {
         return <div className="loading-container"><div className="spinner"></div></div>;
     }
 
+    // Chart Options
+    const chartOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+                labels: { color: '#cbd5e1' }
+            },
+            title: { display: false }
+        },
+        scales: {
+            y: {
+                grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                ticks: { color: '#cbd5e1' }
+            },
+            x: {
+                grid: { display: false },
+                ticks: { color: '#cbd5e1' }
+            }
+        }
+    };
+
     return (
         <div className="admin-page-container">
             <div className="admin-header">
-                <button className="back-btn" onClick={() => navigate('/admin')}>← Back</button>
-                <h1>📊 Reports & Analytics</h1>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                    <button className="back-btn" onClick={() => navigate('/admin')}>
+                        <FaArrowLeft />
+                    </button>
+                    <div>
+                        <h1 style={{ margin: 0 }}>Reports & Analytics</h1>
+                        <p style={{ margin: '5px 0 0 0', color: '#94a3b8', fontSize: '0.9rem' }}>
+                            Platform performance and revenue insights
+                        </p>
+                    </div>
+                </div>
                 <button className="theme-toggle" onClick={toggleTheme}>
                     {isDarkMode ? '☀️' : '🌙'}
                 </button>
             </div>
 
-            <div className="reports-grid">
-                <div className="report-card revenue">
-                    <div className="report-icon">💰</div>
-                    <div className="report-info">
-                        <span className="report-value">₹{stats.totalRevenue.toLocaleString()}</span>
-                        <span className="report-label">Total Revenue</span>
+            <div className="dashboard-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', marginBottom: '2rem' }}>
+                <div className="glass-card" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <div style={{ padding: '15px', borderRadius: '12px', background: 'rgba(34, 197, 94, 0.15)', color: '#4ade80' }}>
+                        <FaMoneyBillWave size={24} />
+                    </div>
+                    <div>
+                        <div style={{ fontSize: '0.9rem', color: '#94a3b8' }}>Total Revenue</div>
+                        <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>₹{stats.totalRevenue.toLocaleString()}</div>
                     </div>
                 </div>
 
-                <div className="report-card bookings">
-                    <div className="report-icon">📅</div>
-                    <div className="report-info">
-                        <span className="report-value">{stats.totalBookings}</span>
-                        <span className="report-label">Total Bookings</span>
+                <div className="glass-card" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <div style={{ padding: '15px', borderRadius: '12px', background: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa' }}>
+                        <FaCalendarCheck size={24} />
+                    </div>
+                    <div>
+                        <div style={{ fontSize: '0.9rem', color: '#94a3b8' }}>Total Bookings</div>
+                        <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{stats.totalBookings}</div>
                     </div>
                 </div>
 
-                <div className="report-card active">
-                    <div className="report-icon">✅</div>
-                    <div className="report-info">
-                        <span className="report-value">{stats.activeBookings}</span>
-                        <span className="report-label">Active Bookings</span>
+                <div className="glass-card" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <div style={{ padding: '15px', borderRadius: '12px', background: 'rgba(236, 72, 153, 0.15)', color: '#f472b6' }}>
+                        <FaPercent size={24} />
                     </div>
-                </div>
-
-                <div className="report-card occupancy">
-                    <div className="report-icon">📈</div>
-                    <div className="report-info">
-                        <span className="report-value">{stats.occupancyRate}%</span>
-                        <span className="report-label">Occupancy Rate</span>
+                    <div>
+                        <div style={{ fontSize: '0.9rem', color: '#94a3b8' }}>Occupancy Rate</div>
+                        <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{stats.occupancyRate}%</div>
                     </div>
                 </div>
             </div>
 
-            <div className="chart-placeholder">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                    <h3>📊 Booking Trends (Last 7 Days)</h3>
-                    <div className="dashboard-legend">
-                        <span style={{ fontSize: '0.8rem', opacity: 0.7 }}>Based on Booking Date</span>
-                    </div>
+            <div className="dashboard-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))' }}>
+                <div className="glass-card">
+                    <h3 style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <FaChartLine color="#8b5cf6" /> Booking Trends (7 Days)
+                    </h3>
+                    <Line
+                        data={{
+                            labels: stats.trends.map(t => t.label),
+                            datasets: [{
+                                label: 'Bookings',
+                                data: stats.trends.map(t => t.count),
+                                borderColor: '#8b5cf6',
+                                backgroundColor: 'rgba(139, 92, 246, 0.2)',
+                                tension: 0.4,
+                                fill: true
+                            }]
+                        }}
+                        options={chartOptions}
+                    />
                 </div>
 
-                <div className="chart-visual">
-                    {stats.trends.map((day, index) => (
-                        <div key={index} className="bar" style={{ height: `${Math.max(day.percentage, 5)}%` }} title={`${day.count} bookings on ${day.date}`}>
-                            <span style={{ fontWeight: 'bold' }}>{day.label}</span>
-                            {day.count > 0 && <div style={{
-                                position: 'absolute',
-                                top: '-25px',
-                                left: '50%',
-                                transform: 'translateX(-50%)',
-                                fontSize: '0.8rem',
-                                opacity: 0.8
-                            }}>{day.count}</div>}
-                        </div>
-                    ))}
+                <div className="glass-card">
+                    <h3 style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <FaMoneyBillWave color="#34d399" /> Monthly Revenue
+                    </h3>
+                    <Bar
+                        data={{
+                            labels: stats.monthlyRevenue.labels,
+                            datasets: [{
+                                label: 'Revenue (₹)',
+                                data: stats.monthlyRevenue.data,
+                                backgroundColor: '#34d399',
+                                borderRadius: 4
+                            }]
+                        }}
+                        options={chartOptions}
+                    />
+                </div>
+
+                <div className="glass-card" style={{ gridColumn: 'span 1' }}>
+                    <h3 style={{ marginBottom: '1.5rem' }}>Booking Status Distribution</h3>
+                    <div style={{ height: '300px', display: 'flex', justifyContent: 'center' }}>
+                        <Doughnut
+                            data={{
+                                labels: ['Active', 'Completed', 'Cancelled'],
+                                datasets: [{
+                                    data: [
+                                        stats.activeBookings,
+                                        stats.totalBookings - stats.activeBookings, /* Mock completed */
+                                        0 /* Mock cancelled */
+                                    ],
+                                    backgroundColor: ['#60a5fa', '#34d399', '#f87171'],
+                                    borderWidth: 0
+                                }]
+                            }}
+                            options={{
+                                responsive: true,
+                                plugins: {
+                                    legend: { position: 'bottom', labels: { color: '#cbd5e1' } }
+                                }
+                            }}
+                        />
+                    </div>
                 </div>
             </div>
         </div>

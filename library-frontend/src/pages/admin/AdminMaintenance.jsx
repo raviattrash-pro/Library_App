@@ -72,7 +72,14 @@ const AdminMaintenance = () => {
     const getImageUrl = (path) => {
         if (!path) return null;
         if (path.startsWith('http')) return path;
-        return `${config.API_BASE_URL}${path}`;
+
+        // Remove leading slash from path if it exists to clean up
+        const cleanPath = path.startsWith('/') ? path.substring(1) : path;
+
+        // Ensure API_BASE_URL ends with / or add it, then append clean path
+        const baseUrl = config.API_BASE_URL.endsWith('/') ? config.API_BASE_URL : `${config.API_BASE_URL}/`;
+
+        return `${baseUrl}${cleanPath}`;
     };
 
     // Styling constants reused from AdminLostFound for consistency

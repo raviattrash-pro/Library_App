@@ -28,7 +28,9 @@ const LostFoundPage = () => {
     const getImageUrl = (url) => {
         if (!url) return null;
         if (url.startsWith('http')) return url;
-        return `${config.API_BASE_URL}${url}`;
+        const cleanPath = url.startsWith('/') ? url.substring(1) : url;
+        const baseUrl = config.API_BASE_URL.endsWith('/') ? config.API_BASE_URL : `${config.API_BASE_URL}/`;
+        return `${baseUrl}${cleanPath}`;
     };
 
     return (

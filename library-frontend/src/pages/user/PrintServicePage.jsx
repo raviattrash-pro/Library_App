@@ -275,10 +275,14 @@ const PrintServicePage = () => {
                                 Scan to Pay: <strong style={{ color: '#e0e0e0' }}>{qrCode ? qrCode.upiId : 'Loading...'}</strong>
                             </p>
                             {qrCode && qrCode.imageUrl ? (
-                                <img src={qrCode.imageUrl} alt="UPI QR" style={{ width: '120px', borderRadius: '8px' }} />
+                                <img
+                                    src={qrCode.imageUrl.startsWith('http') ? qrCode.imageUrl : `${config.API_BASE_URL.endsWith('/') ? config.API_BASE_URL : config.API_BASE_URL + '/'}${qrCode.imageUrl.startsWith('/') ? qrCode.imageUrl.substring(1) : qrCode.imageUrl}`}
+                                    alt="UPI QR"
+                                    style={{ width: '120px', borderRadius: '8px' }}
+                                />
                             ) : (
                                 <div style={{ height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#666' }}>
-                                    Loading QR...
+                                    {qrCode ? 'No QR Image' : 'Loading QR...'}
                                 </div>
                             )}
                         </div>

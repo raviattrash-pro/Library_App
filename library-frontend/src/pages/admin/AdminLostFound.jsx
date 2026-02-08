@@ -65,7 +65,9 @@ const AdminLostFound = () => {
     const getImageUrl = (path) => {
         if (!path) return null;
         if (path.startsWith('http')) return path;
-        return `${config.API_BASE_URL}${path}`;
+        const cleanPath = path.startsWith('/') ? path.substring(1) : path;
+        const baseUrl = config.API_BASE_URL.endsWith('/') ? config.API_BASE_URL : `${config.API_BASE_URL}/`;
+        return `${baseUrl}${cleanPath}`;
     };
 
     const containerStyle = {

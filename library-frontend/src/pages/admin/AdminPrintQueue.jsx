@@ -284,8 +284,16 @@ const AdminPrintQueue = () => {
                                 const fullName = user.firstName ? `${user.firstName} ${user.lastName}` : user.username || `User ${req.userId}`;
 
                                 // Prefix backend URL for files
-                                const fileUrl = req.fileUrl ? `${config.API_BASE_URL}${req.fileUrl}` : '#';
-                                const paymentUrl = req.paymentScreenshotUrl ? `${config.API_BASE_URL}${req.paymentScreenshotUrl}` : '#';
+                                const formatUrl = (path) => {
+                                    if (!path) return '#';
+                                    if (path.startsWith('http')) return path;
+                                    const cleanPath = path.startsWith('/') ? path.substring(1) : path;
+                                    const baseUrl = config.API_BASE_URL.endsWith('/') ? config.API_BASE_URL : `${config.API_BASE_URL}/`;
+                                    return `${baseUrl}${cleanPath}`;
+                                };
+
+                                const fileUrl = formatUrl(req.fileUrl);
+                                const paymentUrl = formatUrl(req.paymentScreenshotUrl);
 
                                 return (
                                     <motion.tr

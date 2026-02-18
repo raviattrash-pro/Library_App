@@ -12,11 +12,11 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: true
+          enabled: ${DISCOVERY_LOCATOR_ENABLED:false}
           lower-case-service-id: true
       httpclient:
-        connect-timeout: 10000
-        response-timeout: 90s
+        connect-timeout: 30000
+        response-timeout: 120s
 
 
 jwt:
@@ -24,7 +24,7 @@ jwt:
 
 eureka:
   client:
-    enabled: ${EUREKA_CLIENT_ENABLED:true}
+    enabled: ${EUREKA_CLIENT_ENABLED:false}
     serviceUrl:
       defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
   instance:
